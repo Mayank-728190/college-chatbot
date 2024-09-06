@@ -40,7 +40,7 @@ const Sidebar = () => {
     
   return (
     <div style={{position:"relative",width:toggle ? '200px' : '80px'}}>
-        <div style={{background:"var(--bg-color)",width:toggle ? '200px' : '80px',transition:".2s",height:"100vh",position:"fixed",top:"0px",left:"0px"
+        <div style={{background:"var(--bg-color)",width:toggle ? '200px' : '80px',transition:".2s",height:"100svh",position:"fixed",top:"0px",left:"0px"
         }}>
         <button style={{position:"relative",marginLeft:"10px",color:'var(--font-color)',marginTop:"10px",padding:"8px 10px",fontSize:"1.8em",background:"transparent",outline:"none",border:"none"}} onClick={()=>{settoggle(!toggle)}}><RxHamburgerMenu />
         </button>
