@@ -1,0 +1,27 @@
+.user{
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+.user div{
+    width: fit-content;
+    min-width: 40%;
+    padding: 16px;
+    background-color: var(--prompt-bg);
+    border-radius: 12px;
+
+}
+.bot{
+    display: flex;
+    margin-top: 20px;
+
+}
+.bot div{
+    max-width: 80%;
+    min-width: 40%;
+    padding: 18px;
+    box-shadow:0px 0px 1px 1px var(--button-disable);
+    border-radius: 12px;
+
+
+}
