@@ -2,6 +2,8 @@
     display: flex;
     justify-content: flex-end;
     margin-top: 20px;
+    margin-bottom: 10px;
+
 }
 .user div{
     width: fit-content;
@@ -9,11 +11,14 @@
     padding: 16px;
     background-color: var(--prompt-bg);
     border-radius: 12px;
+    max-width: 80%;
+
 
 }
 .bot{
     display: flex;
     margin-top: 20px;
+    margin-bottom: 10px;
 
 }
 .bot div{
@@ -25,3 +30,16 @@
 
 
 }
+.user svg {
+    position: relative;
+    top:2px;
+    border: 4px solid var(--input-placeholder-color);
+    height: 28px;
+    width: 28px;
+    border-radius: 50%;
+    margin-left: 4px;
+
+  }
+  .bot svg{
+    margin-right: 2px;
+  }

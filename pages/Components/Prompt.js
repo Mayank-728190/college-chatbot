@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { FaArrowUp } from "react-icons/fa";
 import styles from '@/styles/Prompt.module.css'
 
-const Prompt = ({chat,setChat}) => {
+const Prompt = ({chat,setChat,chatRef}) => {
   const [prompt, setPrompt] = useState('')
   const [disabled, setDisabled] = useState(true)
 
@@ -14,10 +14,9 @@ const Prompt = ({chat,setChat}) => {
   const enterPrompt = (e) =>{
     e.preventDefault()
     setChat((prevChat) => [...prevChat, prompt])
-    window.scrollTo(0, document.body.scrollHeight)
-    setPrompt('')
+     setPrompt('')
   }
-
+  
   return (
     <div style={{ position: "relative", width: "100%"}}>
       <div
@@ -26,7 +25,8 @@ const Prompt = ({chat,setChat}) => {
           display: "flex",
           justifyContent: "center",
           width: "100%",
-          paddingBottom:"18px"
+          paddingBottom:"18px",
+          paddingTop:"20px"
           
         }}
       >

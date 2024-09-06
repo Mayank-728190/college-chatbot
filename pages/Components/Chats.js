@@ -1,12 +1,20 @@
-import React from 'react'
 import styles from '@/styles/Chats.module.css'
 import { BsStars } from "react-icons/bs";
+import { LuUser2 } from "react-icons/lu";
+import React, { forwardRef, useEffect, useRef } from 'react';
 
 
-const Chats = ({chat}) => {
-    
+const Chats = ({chat,ref}) => {
+  const chatContainerRef = useRef(null);
+
+  useEffect(() => {
+    if (chatContainerRef.current) {
+      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+    }
+  }, [chat]);
+  
   return (
-    <div style={{flex:"1",overflowY:"auto",padding:"0px 20px"}}>
+    <div ref={chatContainerRef} style={{flex:"1",overflowY:"auto",padding:"0px 20px"}}>
        
        {/* <div >
           
@@ -35,11 +43,22 @@ Community Well-Being: Discuss how trees contribute to the livability of urban ar
         {chat && chat.map((e,index)=>{
             if(index % 2 ==0){
                 return <div className={styles.user}>
-                    <div>{e}</div></div>
+                    <div>{e}</div>
+                    <LuUser2 style={{
+              backgroundColor:"var(--input-placeholder-color)",
+              // padding:"10px",
+              // height:"20px",
+              // width:"20px",
+              fontSize: "1em",
+              // color:"red",
+              color:"var(--bg-color)"
+              // fill: "url(#gradient)",
+            }}/>
+                    </div>
             }
             return <div className={styles.bot}>
             <BsStars style={{
-              fontSize: "1.3em",
+              fontSize: "1.8em",
               fill: "url(#gradient)",
             }}/>
             <svg width="0" height="0">
