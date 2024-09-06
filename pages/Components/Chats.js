@@ -32,7 +32,7 @@ Social and Health Benefits:
 Mental Health Improvement: Delve into research showing how green spaces and trees positively impact mental health, reduce stress, and promote relaxation.
 Community Well-Being: Discuss how trees contribute to the livability of urban areas by creating attractive public spaces, encouraging outdoor activities, and fostering community interaction.
         </div> */}
-        {chat.map((e,index)=>{
+        {chat && chat.map((e,index)=>{
             if(index % 2 ==0){
                 return <div className={styles.user}>
                     <div>{e}</div></div>
