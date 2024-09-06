@@ -2,19 +2,49 @@ import React, { useEffect, useState } from 'react';
 import { FaArrowUp } from "react-icons/fa";
 import styles from '@/styles/Prompt.module.css'
 
+
 const Prompt = ({chat,setChat,chatRef}) => {
   const [prompt, setPrompt] = useState('')
   const [disabled, setDisabled] = useState(true)
+  const [generating, setGenerating] = useState(false)
 
   useEffect(()=>{
     setDisabled(prompt === '')
   },[prompt])
 
+  useEffect(()=>{
+    if(generating){
+      setDisabled(true)
+    }
+  },[generating,disabled])
 
-  const enterPrompt = (e) =>{
+
+  const enterPrompt = async (e) =>{
     e.preventDefault()
     setChat((prevChat) => [...prevChat, prompt])
      setPrompt('')
+     setDisabled(true)
+     setGenerating(true)
+     //make post request to localhost:5000/query using fetch
+     try{
+     fetch('/api/query', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({query:prompt})
+        }).then((e)=>e.json())
+        .then((data)=>{
+          console.log(data.data.response)
+          setChat((prev)=>[...prev,data.data.response])
+          console.log(chat)
+          setGenerating(false)
+        }
+      )}
+      catch(e){
+        console.log(e)
+      }
+     
   }
   
   return (

@@ -67,7 +67,8 @@ Community Well-Being: Discuss how trees contribute to the livability of urban ar
                 <stop offset="100%" stopColor="#ADD8E6" /> // light blue
               </linearGradient>
             </svg>
-            <div>{e}</div></div>
+            <div dangerouslySetInnerHTML={{ __html: e.replace(/\n/g, '<br>').replace(/\*\*(.*?)\*\*/g, '<b>$1</b>') }} />
+            </div>
         })}
       
     </div>
