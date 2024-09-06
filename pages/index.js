@@ -31,7 +31,7 @@ export default function Home() {
       <div>
 
       </div>
-      <div style={{display:"flex",height:"100vh",flexDirection:"column",
+      <div style={{display:"flex",height:"100svh",flexDirection:"column",
         justifyContent:"space-between"
       }}>
 
