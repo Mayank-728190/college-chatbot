@@ -17,7 +17,7 @@ const Chats = ({chat,ref,setPrompt}) => {
   
   return (
     <div ref={chatContainerRef} style={{flex:"1",overflowY:"auto",padding:"0px 20px"}}>
-      {chat.length < 1 && <div style={{display:"flex",justifyContent:"flex-end",flexDirection:"column",height:"100%",textAlign:"center",paddingBottom:"60px",alignItems:"center"}}>
+      {chat && chat.length < 1 && <div style={{display:"flex",justifyContent:"flex-end",flexDirection:"column",height:"100%",textAlign:"center",paddingBottom:"60px",alignItems:"center"}}>
           <h2 style={{maxWidth:"80%"}}>Ask any query related to any college in Rajasthan</h2>
           <div className={styles.queslinks}>
             {ques.map((e,i)=>{
