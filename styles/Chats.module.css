@@ -86,7 +86,7 @@
     /* flex-wrap: wrap; */
   }
   .ques:hover{
-    box-shadow: 0px 0px 1px 1px var(--font-color);
+    box-shadow: 0px 0px 2px 1px var(--font-color);
 
     /* border: 1px solid var(--font-color); */
 }

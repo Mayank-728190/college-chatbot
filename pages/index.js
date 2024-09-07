@@ -26,7 +26,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div style={{display:"flex",maxWidth:"100vw"}}>
-     <Sidebar style={{flex:"1",position:"fixed",top:"0px",left:"0px"}}></Sidebar>
+     <Sidebar chat={chat} style={{flex:"1",position:"fixed",top:"0px",left:"0px"}}></Sidebar>
      <div style={{background:"var(--bg-color)",flex:"1",height:"100%"}}>
 
       

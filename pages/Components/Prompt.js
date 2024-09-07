@@ -36,10 +36,16 @@ const Prompt = ({chat,setChat,chatRef,prompt,setPrompt}) => {
         }).then((e)=>e.json())
         .then((data)=>{
           console.log(data)
-          console.log(data.data.response)
-          setChat((prevChat) => [...prevChat.slice(0, -1), data.data.response]);
-          console.log(chat)
+          try{
+            console.log(data.data.response)
+            setChat((prevChat) => [...prevChat.slice(0, -1), data.data.response]);
+            console.log(chat)
+          }
+          catch(err){
+            console.log(err)
+          }
           setGenerating(false)
+
         }
       )}
       catch(e){

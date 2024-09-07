@@ -6,7 +6,7 @@ import { CiDark } from "react-icons/ci";
 
 
 
-const Sidebar = () => {
+const Sidebar = ({chat}) => {
     const [toggle, settoggle] = useState(false)
     const [mode, setMode] = useState(true);
     const [isInitialized, setIsInitialized] = useState(false);
@@ -45,8 +45,8 @@ const Sidebar = () => {
         <button style={{position:"relative",marginLeft:"10px",color:'var(--font-color)',marginTop:"10px",padding:"8px 10px",fontSize:"1.8em",background:"transparent",outline:"none",border:"none"}} onClick={()=>{settoggle(!toggle)}}><RxHamburgerMenu />
         </button>
 
-        {toggle && <div style={{background:"red"}}>
-            History
+        {toggle && <div style={{}}>
+            {chat[0] && `${chat[0].substring(0,20)}${chat[0].length === 23 ? chat[0].substring(20,23) : '...' }`}
           </div>}
 
 

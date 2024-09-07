@@ -32,7 +32,7 @@ const Chats = ({chat,ref,setPrompt}) => {
                           <stop offset="100%" stopColor="#ADD8E6" /> // light blue
                         </linearGradient>
                       </svg>
-                      </div><div >{e}</div></div>)
+                      </div><div style={{fontSize:".9em",color:"gray"}}>{e}</div></div>)
             })}
           </div>
         </div>}
