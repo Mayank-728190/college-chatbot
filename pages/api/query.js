@@ -7,7 +7,7 @@ export default async function handler(req, res) {
                 headers:{
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({"query":req.body.query})
+                body: JSON.stringify({"query":req.body.query,"memory":req.body.memory})
             });
 
     //         if (!response.ok) {
