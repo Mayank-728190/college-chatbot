@@ -14,6 +14,8 @@ const inter = Inter({ subsets: ["latin"] });
 export default function Home() {
   const [chat, setChat] = useState([])
   const chatRef = useRef(null);
+  const [prompt, setPrompt] = useState('')
+
 
   return (
     <>
@@ -35,9 +37,9 @@ export default function Home() {
         justifyContent:"space-between"
       }}>
         <h1 className={styles.h1} style={{paddingTop:"12px",paddingBottom:"5px"}}>Vinayaka</h1>
-        <Chats chat={chat} ref={chatRef}></Chats>
+        <Chats chat={chat} ref={chatRef} setPrompt={setPrompt}></Chats>
         
-        <Prompt style={{flex:"1"}} setChat={setChat} chat={chat} chatRef={chatRef}></Prompt>
+        <Prompt style={{flex:"1"}} setChat={setChat} chat={chat} chatRef={chatRef} setPrompt={setPrompt} prompt={prompt}></Prompt>
       </div>
 </div>
      </div>

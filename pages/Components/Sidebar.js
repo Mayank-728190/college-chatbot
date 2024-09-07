@@ -45,7 +45,7 @@ const Sidebar = () => {
         <button style={{position:"relative",marginLeft:"10px",color:'var(--font-color)',marginTop:"10px",padding:"8px 10px",fontSize:"1.8em",background:"transparent",outline:"none",border:"none"}} onClick={()=>{settoggle(!toggle)}}><RxHamburgerMenu />
         </button>
 
-        {toggle && <div>
+        {toggle && <div style={{background:"red"}}>
             History
           </div>}
 

@@ -3,8 +3,7 @@ import { FaArrowUp } from "react-icons/fa";
 import styles from '@/styles/Prompt.module.css'
 
 
-const Prompt = ({chat,setChat,chatRef}) => {
-  const [prompt, setPrompt] = useState('')
+const Prompt = ({chat,setChat,chatRef,prompt,setPrompt}) => {
   const [disabled, setDisabled] = useState(true)
   const [generating, setGenerating] = useState(false)
 
@@ -21,7 +20,7 @@ const Prompt = ({chat,setChat,chatRef}) => {
 
   const enterPrompt = async (e) =>{
     e.preventDefault()
-    setChat((prevChat) => [...prevChat, prompt])
+    setChat((prevChat) => [...prevChat, prompt,'...'])
      setPrompt('')
      setDisabled(true)
      setGenerating(true)
@@ -36,8 +35,9 @@ const Prompt = ({chat,setChat,chatRef}) => {
       })
         }).then((e)=>e.json())
         .then((data)=>{
+          console.log(data)
           console.log(data.data.response)
-          setChat((prev)=>[...prev,data.data.response])
+          setChat((prevChat) => [...prevChat.slice(0, -1), data.data.response]);
           console.log(chat)
           setGenerating(false)
         }
@@ -50,6 +50,7 @@ const Prompt = ({chat,setChat,chatRef}) => {
   
   return (
     <div style={{ position: "relative", width: "100%"}}>
+      
       <div
         style={{
           background: "var(--bg-color)",

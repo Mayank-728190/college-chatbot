@@ -4,7 +4,7 @@ import { LuUser2 } from "react-icons/lu";
 import React, { forwardRef, useEffect, useRef } from 'react';
 
 
-const Chats = ({chat,ref}) => {
+const Chats = ({chat,ref,setPrompt}) => {
   const chatContainerRef = useRef(null);
 
   useEffect(() => {
@@ -12,9 +12,30 @@ const Chats = ({chat,ref}) => {
       chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
     }
   }, [chat]);
+
+  const ques = ['What is the admission process of Government Girls College Ajmer (GGCA)','Which college provides better facilities Government College, Pushkar or Government College, Arain','Contact information and fees structure of Shri Govind Singh Gurjar Rajkiya Mahavidyalaya']
   
   return (
     <div ref={chatContainerRef} style={{flex:"1",overflowY:"auto",padding:"0px 20px"}}>
+      {chat.length < 1 && <div style={{display:"flex",justifyContent:"flex-end",flexDirection:"column",height:"100%",textAlign:"center",paddingBottom:"60px",alignItems:"center"}}>
+          <h2 style={{maxWidth:"80%"}}>Ask any query related to any college in Rajasthan</h2>
+          <div className={styles.queslinks}>
+            {ques.map((e,i)=>{
+                        return(<div className={styles.ques} key={i} onClick={()=>{setPrompt(e)}}>
+                          <div style={{display:'flex',alignItems:"center"}}>
+                          <BsStars style={{
+                          fontSize: "2em",
+                          fill: "url(#gradient)"
+                        }}/><svg width="10px" height="0">
+                        <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                          <stop offset="0%" stopColor="#FFC0CB" /> // pink
+                          <stop offset="100%" stopColor="#ADD8E6" /> // light blue
+                        </linearGradient>
+                      </svg>
+                      </div><div >{e}</div></div>)
+            })}
+          </div>
+        </div>}
        
        {/* <div >
           
@@ -42,7 +63,7 @@ Community Well-Being: Discuss how trees contribute to the livability of urban ar
         </div> */}
         {chat && chat.map((e,index)=>{
             if(index % 2 ==0){
-                return <div className={styles.user}>
+                return <div key={index} className={styles.user}>
                     <div>{e}</div>
                     <LuUser2 style={{
               backgroundColor:"var(--input-placeholder-color)",
@@ -56,7 +77,7 @@ Community Well-Being: Discuss how trees contribute to the livability of urban ar
             }}/>
                     </div>
             }
-            return <div className={styles.bot}>
+            return <div key={index} className={styles.bot}>
             <BsStars style={{
               fontSize: "1.8em",
               fill: "url(#gradient)",
@@ -67,7 +88,9 @@ Community Well-Being: Discuss how trees contribute to the livability of urban ar
                 <stop offset="100%" stopColor="#ADD8E6" /> // light blue
               </linearGradient>
             </svg>
+            {e === '...' ? <div><div className={styles.loader}></div></div> : 
             <div dangerouslySetInnerHTML={{ __html: e.replace(/\n/g, '<br>').replace(/\*\*(.*?)\*\*/g, '<b>$1</b>') }} />
+        }
             </div>
         })}
       
