@@ -32,7 +32,8 @@ const Prompt = ({chat,setChat,chatRef}) => {
       headers: {
         'Content-Type': 'application/json',
         },
-        body: JSON.stringify({query:prompt,memory:chat.slice(-5)})
+        body: JSON.stringify({query:prompt,memory:chat.slice(-10).filter((e,i)=>{return i % 2 === 0})
+      })
         }).then((e)=>e.json())
         .then((data)=>{
           console.log(data.data.response)
