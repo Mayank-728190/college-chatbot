@@ -3,44 +3,34 @@ import { FaArrowUp, FaMicrophone, FaMicrophoneSlash } from 'react-icons/fa';
 import styles from '@/styles/Prompt.module.css';
 
 // Check if SpeechRecognition is available
-const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-
-const Prompt = ({ chat, setChat, chatRef, prompt, setPrompt }) => {
-  const [disabled, setDisabled] = useState(true);
-  const [generating, setGenerating] = useState(false);
-  const [isListening, setIsListening] = useState(false);
+const useSpeechRecognition = () => {
   const [recognition, setRecognition] = useState(null);
+  const [isListening, setIsListening] = useState(false);
 
   useEffect(() => {
-    setDisabled(prompt === '');
-  }, [prompt]);
+    if (typeof window !== 'undefined') {
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 
-  useEffect(() => {
-    if (generating) {
-      setDisabled(true);
-    }
-  }, [generating, disabled]);
+      if (SpeechRecognition) {
+        const recog = new SpeechRecognition();
+        recog.continuous = false;
+        recog.interimResults = false;
+        recog.lang = 'en-US';
 
-  useEffect(() => {
-    if (SpeechRecognition) {
-      const recog = new SpeechRecognition();
-      recog.continuous = false;
-      recog.interimResults = false;
-      recog.lang = 'en-US';
+        recog.onresult = (event) => {
+          const transcript = event.results[0][0].transcript;
+          setPrompt(transcript);
+        };
 
-      recog.onresult = (event) => {
-        const transcript = event.results[0][0].transcript;
-        setPrompt(transcript);
-      };
+        recog.onerror = (event) => {
+          console.error("Speech recognition error:", event.error);
+          stopRecognition();
+        };
 
-      recog.onerror = (event) => {
-        console.error("Speech recognition error:", event.error);
-        stopRecognition();
-      };
-
-      setRecognition(recog);
-    } else {
-      console.warn("SpeechRecognition is not supported in this browser.");
+        setRecognition(recog);
+      } else {
+        console.warn("SpeechRecognition is not supported in this browser.");
+      }
     }
   }, []);
 
@@ -57,6 +47,24 @@ const Prompt = ({ chat, setChat, chatRef, prompt, setPrompt }) => {
       setIsListening(false);
     }
   };
+
+  return { isListening, startRecognition, stopRecognition };
+};
+
+const Prompt = ({ chat, setChat, chatRef, prompt, setPrompt }) => {
+  const [disabled, setDisabled] = useState(true);
+  const [generating, setGenerating] = useState(false);
+  const { isListening, startRecognition, stopRecognition } = useSpeechRecognition();
+
+  useEffect(() => {
+    setDisabled(prompt === '');
+  }, [prompt]);
+
+  useEffect(() => {
+    if (generating) {
+      setDisabled(true);
+    }
+  }, [generating, disabled]);
 
   const enterPrompt = async (e) => {
     e.preventDefault();
