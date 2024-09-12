@@ -1,12 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { RxHamburgerMenu } from 'react-icons/rx';
 import { CiLight, CiDark } from 'react-icons/ci';
-import dynamic from 'next/dynamic';
-
-// Dynamically import the SpeechRecognition logic to ensure it runs only on the client side
-const SpeechRecognitionComponent = dynamic(() => import('./SpeechRecognitionComponent'), {
-  ssr: false
-});
 
 const Sidebar = ({ chat }) => {
   const [toggle, setToggle] = useState(false);
@@ -14,7 +8,7 @@ const Sidebar = ({ chat }) => {
   const [isInitialized, setIsInitialized] = useState(false);
 
   useEffect(() => {
-    if (typeof window !== 'undefined' && window.localStorage) {
+    if (typeof window !== 'undefined') {
       const savedMode = localStorage.getItem('mode');
       if (savedMode !== null) {
         setMode(savedMode === 'true');
@@ -66,11 +60,9 @@ const Sidebar = ({ chat }) => {
           <RxHamburgerMenu />
         </button>
 
-        {toggle && (
-          <div>
-            {chat[0] && `${chat[0].substring(0, 20)}${chat[0].length === 23 ? chat[0].substring(20, 23) : '...'}`}
-          </div>
-        )}
+        {toggle && <div>
+          {chat[0] && `${chat[0].substring(0, 20)}${chat[0].length === 23 ? chat[0].substring(20, 23) : '...'}`}
+        </div>}
 
         <div style={{ position: 'absolute', bottom: '40px', left: '20px' }}>
           <button
@@ -86,9 +78,6 @@ const Sidebar = ({ chat }) => {
             {!mode ? <CiLight /> : <CiDark />}
           </button>
         </div>
-
-        {/* Use dynamic import for the SpeechRecognition component */}
-        <SpeechRecognitionComponent />
       </div>
     </div>
   );
