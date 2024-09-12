@@ -2,13 +2,15 @@ import React, { useEffect, useState } from 'react';
 import { FaArrowUp, FaMicrophone, FaMicrophoneSlash } from 'react-icons/fa';
 import styles from '@/styles/Prompt.module.css';
 
-// Check if SpeechRecognition is available
-const useSpeechRecognition = () => {
-  const [recognition, setRecognition] = useState(null);
+const Prompt = ({ chat, setChat, chatRef, prompt, setPrompt }) => {
+  const [disabled, setDisabled] = useState(true);
+  const [generating, setGenerating] = useState(false);
   const [isListening, setIsListening] = useState(false);
+  const [recognition, setRecognition] = useState(null);
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
+      // Check if SpeechRecognition is available
       const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 
       if (SpeechRecognition) {
@@ -34,6 +36,16 @@ const useSpeechRecognition = () => {
     }
   }, []);
 
+  useEffect(() => {
+    setDisabled(prompt === '');
+  }, [prompt]);
+
+  useEffect(() => {
+    if (generating) {
+      setDisabled(true);
+    }
+  }, [generating, disabled]);
+
   const startRecognition = () => {
     if (recognition) {
       recognition.start();
@@ -47,24 +59,6 @@ const useSpeechRecognition = () => {
       setIsListening(false);
     }
   };
-
-  return { isListening, startRecognition, stopRecognition };
-};
-
-const Prompt = ({ chat, setChat, chatRef, prompt, setPrompt }) => {
-  const [disabled, setDisabled] = useState(true);
-  const [generating, setGenerating] = useState(false);
-  const { isListening, startRecognition, stopRecognition } = useSpeechRecognition();
-
-  useEffect(() => {
-    setDisabled(prompt === '');
-  }, [prompt]);
-
-  useEffect(() => {
-    if (generating) {
-      setDisabled(true);
-    }
-  }, [generating, disabled]);
 
   const enterPrompt = async (e) => {
     e.preventDefault();
@@ -85,7 +79,6 @@ const Prompt = ({ chat, setChat, chatRef, prompt, setPrompt }) => {
         }),
       });
       const data = await response.json();
-      console.log(data);
       try {
         setChat((prevChat) => [...prevChat.slice(0, -1), data.data.response]);
       } catch (err) {
