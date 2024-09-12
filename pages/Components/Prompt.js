@@ -10,7 +10,6 @@ const Prompt = ({ chat, setChat, chatRef, prompt, setPrompt }) => {
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      // Check if SpeechRecognition is available
       const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 
       if (SpeechRecognition) {
@@ -79,11 +78,7 @@ const Prompt = ({ chat, setChat, chatRef, prompt, setPrompt }) => {
         }),
       });
       const data = await response.json();
-      try {
-        setChat((prevChat) => [...prevChat.slice(0, -1), data.data.response]);
-      } catch (err) {
-        console.error(err);
-      }
+      setChat((prevChat) => [...prevChat.slice(0, -1), data.data.response]);
       setGenerating(false);
     } catch (e) {
       console.error(e);
