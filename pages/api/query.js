@@ -2,7 +2,7 @@
 export default async function handler(req, res) {
     if (req.method === 'POST') {
         try {
-            const response = await fetch('https://college-data-python.onrender.com/query', {
+            const response = await fetch('https://college-data-python-1.onrender.com/query', {
                 method: 'POST',
                 headers:{
                     'Content-Type': 'application/json'
